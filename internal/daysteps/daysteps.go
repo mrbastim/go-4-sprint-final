@@ -30,7 +30,6 @@ func parsePackage(data string) (int, time.Duration, error) {
 }
 
 func DayActionInfo(data string, weight, height float64) string {
-	// TODO: реализовать функцию
 	steps, duration, err := parsePackage(data)
 	if err != nil {
 		return "error"
@@ -43,6 +42,6 @@ func DayActionInfo(data string, weight, height float64) string {
 		return err.Error()
 	}
 	return `Количество шагов: ` + strconv.Itoa(steps) + `.
-			Дистанция составила ` + fmt.Sprintf("%.2f", distance) + ` км.
-			Вы сожгли ` + fmt.Sprintf("%.2f", calories) + ` ккал.`
+Дистанция составила ` + fmt.Sprintf("%.2f", distance) + ` км.
+Вы сожгли ` + fmt.Sprintf("%.2f", calories) + ` ккал.`
 }
