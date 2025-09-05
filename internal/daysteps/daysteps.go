@@ -30,7 +30,6 @@ func parsePackage(data string) (int, time.Duration, error) {
 }
 
 func DayActionInfo(data string, weight, height float64) string {
-	// TODO: реализовать функцию
 	steps, duration, err := parsePackage(data)
 	if err != nil {
 		return "error"
