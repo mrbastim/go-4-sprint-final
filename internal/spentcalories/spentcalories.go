@@ -25,11 +25,15 @@ func parseTraining(data string) (int, string, time.Duration, error) {
 	steps, err := strconv.Atoi(dataSlice[0])
 	if err != nil {
 		return 0, "", 0, fmt.Errorf("неверный формат: %w", err)
+	} else if steps <= 0 {
+		return 0, "", 0, fmt.Errorf("количество шагов должно быть больше нуля")
 	}
 	trainingType := dataSlice[1]
 	duration, err := time.ParseDuration(dataSlice[2])
 	if err != nil {
 		return 0, "", 0, fmt.Errorf("неверный формат: %w", err)
+	} else if duration <= 0 {
+		return 0, "", 0, fmt.Errorf("продолжительность тренировки должна быть больше нуля")
 	}
 	return steps, trainingType, duration, nil
 }
@@ -61,10 +65,11 @@ func TrainingInfo(data string, weight, height float64) (string, error) {
 			log.Println(err)
 		}
 		return fmt.Sprintf(`Тип тренировки: %s
-Длительность: %v ч.
+Длительность: %.2f ч.
 Дистанция: %.2f км.
 Скорость: %.2f км/ч
-Сожгли калорий: %.2f`, trainingType, duration.Hours(), dist, meanSpeed, calories), nil
+Сожгли калорий: %.2f
+`, trainingType, duration.Hours(), dist, meanSpeed, calories), nil
 	case "Бег":
 		dist := distance(steps, height)
 		meanSpeed := meanSpeed(steps, height, duration)
@@ -73,10 +78,11 @@ func TrainingInfo(data string, weight, height float64) (string, error) {
 			log.Println(err)
 		}
 		return fmt.Sprintf(`Тип тренировки: %s
-Длительность: %v ч.
+Длительность: %.2f ч.
 Дистанция: %.2f км.
 Скорость: %.2f км/ч
-Сожгли калорий: %.2f`, trainingType, duration.Hours(), dist, meanSpeed, calories), nil
+Сожгли калорий: %.2f
+`, trainingType, duration.Hours(), dist, meanSpeed, calories), nil
 	default:
 		return "", fmt.Errorf("неизвестный тип тренировки")
 	}
